@@ -20,17 +20,17 @@ app.get("/*", async (req, res) => {
 
     const id = host.split(".")[0];
     const filePath = req.path;
+    console.log(host);
+    console.log(id)
 
     const contents = await s3.getObject({
         Bucket: "vercel",
         Key: `dist/${id}${filePath}`
     }).promise();
-    console.log(contents)
     const type = filePath.endsWith("html") ? "text/html" : filePath.endsWith("css") ? "text/css" : "application/javascript"
     res.set("Content-Type", type);
-    console.log(type)
 
     res.send(contents.Body);
 })
 
-app.listen(3001);
+app.listen(8080)
